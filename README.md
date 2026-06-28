@@ -40,3 +40,9 @@ or
 or
 
 ```uninstall-web-apps```
+
+## Future Ideas
+
+- Option to Edit existing Web Apps
+- Website Catalog to give users some commonly used websites rather than manually typing it on their own
+- Figure out how to put this on the AUR if that will be helpful to people
