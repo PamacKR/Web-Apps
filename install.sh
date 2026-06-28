@@ -102,23 +102,45 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo
 
     if [[ -n "$BASH_VERSION" ]]; then
-        echo "To use the commands immediately, run:"
-        echo
-        echo '    export PATH="$HOME/.local/bin:$PATH"'
-        echo
-        echo "To make this permanent, run:"
-        echo
-        echo '    echo '\''export PATH="$HOME/.local/bin:$PATH"'\'' >> ~/.bashrc'
+        read -rp "Would you like to add ~/.local/bin to your PATH permanently? [Y/n] " reply
+
+        if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+            echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+            export PATH="$HOME/.local/bin:$PATH"
+
+            echo
+            echo "✓ ~/.local/bin has been added to ~/.bashrc."
+            echo "✓ Commands are available immediately."
+
+        else
+            echo
+            echo "To use the commands immediately, run:"
+            echo
+            echo '    export PATH="$HOME/.local/bin:$PATH"'
+            echo
+            echo "To make this permanent later, run:"
+            echo
+            echo '    echo '\''export PATH="$HOME/.local/bin:$PATH"'\'' >> ~/.bashrc'
+        fi
 
     elif [[ -n "$FISH_VERSION" ]]; then
-        echo "To use the commands immediately, run:"
-        echo
-        echo "    fish_add_path ~/.local/bin"
-        echo
-        echo "To make this permanent, add it to your Fish configuration."
+        read -rp "Would you like to add ~/.local/bin to your PATH permanently? [Y/n] " reply
+
+        if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+            fish_add_path ~/.local/bin
+
+            echo
+            echo "✓ ~/.local/bin has been added to your Fish PATH."
+
+        else
+            echo
+            echo "Run the following command whenever you're ready:"
+            echo
+            echo "    fish_add_path ~/.local/bin"
+        fi
 
     else
-        echo "Please add ~/.local/bin to your PATH."
+        echo "Please add ~/.local/bin to your PATH manually."
     fi
 
     echo
@@ -128,9 +150,9 @@ echo "✓ Installation Complete"
 echo
 
 if command -v web-apps >/dev/null 2>&1; then
-    echo "Installation verified."
+    echo "✓ Installation verified."
 else
-    echo "⚠ Installation completed, but 'web-apps' is not yet available in your PATH."
+    echo "⚠ Installation completed, but 'web-apps' is not yet available."
 fi
 
 echo
