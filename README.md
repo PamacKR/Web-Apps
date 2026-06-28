@@ -31,12 +31,12 @@ chmod +x install.sh
 
 ## Usage
 
-web-apps
+```web-apps```
 
 or
 
-install-web-apps
+```install-web-apps```
 
 or
 
-uninstall-web-apps
+```uninstall-web-apps```
