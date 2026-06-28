@@ -4,7 +4,7 @@ clear
 
 CHOICE=$(
 gum choose \
-    "Install Web App" \
+    "Install a Web App" \
     "Uninstall Web Apps"
 )
 
