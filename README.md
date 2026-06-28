@@ -41,6 +41,10 @@ or
 
 ```uninstall-web-apps```
 
+## Demo
+
+https://github.com/user-attachments/assets/38bff763-6592-4e25-8b90-782ea8702c24
+
 ## Future Ideas
 
 - Option to Edit existing Web Apps
