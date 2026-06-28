@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
+
+set -e
+
+source "$SCRIPT_DIR/lib/utils.sh"
+
+clear
+
+gum style \
+    --foreground 212 \
+    --bold \
+"UNINSTALL WEB APPS"
+
+echo
+echo "Select one or more web apps to remove."
+echo
+
+DATA_DIR="$HOME/.local/share/install-web-apps"
+METADATA_DIR="$DATA_DIR/metadata"
+
+apps=()
+
+for file in "$METADATA_DIR"/*.json; do
+    [[ -e "$file" ]] || continue
+    apps+=("$(jq -r '.name' "$file")")
+done
+
+if [[ ${#apps[@]} -eq 0 ]]; then
+    echo
+    gum style --foreground 196 "No installed web apps found."
+    exit 0
+fi
+
+APPS=$(printf "%s\n" "${apps[@]}" | sort | gum choose --no-limit)
+
+[[ -z "$APPS" ]] && exit 0
+
+COUNT=$(printf "%s\n" "$APPS" | wc -l)
+
+echo
+
+if ! gum confirm "Remove $COUNT selected web app(s)?"; then
+    exit 0
+fi
+
+echo
+echo "Uninstalling..."
+echo
+
+while IFS= read -r APP; do
+
+    SLUG=$(slugify "$APP")
+
+    rm -f "$HOME/.local/share/applications/${SLUG}.desktop"
+
+    rm -f "$DATA_DIR/icons/${SLUG}.png"
+
+    rm -f "$DATA_DIR/metadata/${SLUG}.json"
+
+    echo "✓ Removed $APP"
+
+done <<< "$APPS"
+
+update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
+
+echo
+
+gum style \
+    --foreground 42 \
+    --bold \
+"✓ Uninstallation Complete"

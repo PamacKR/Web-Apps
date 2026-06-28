@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
+
+set -e
+
+source "$SCRIPT_DIR/lib/utils.sh"
+source "$SCRIPT_DIR/lib/browser.sh"
+source "$SCRIPT_DIR/lib/storage.sh"
+source "$SCRIPT_DIR/lib/desktop.sh"
+source "$SCRIPT_DIR/lib/icon.sh"
+source "$SCRIPT_DIR/lib/install.sh"
+
+clear
+
+gum style \
+    --foreground 212 \
+    --bold \
+"INSTALL WEB APPS"
+
+echo
+echo "Create desktop launchers for websites."
+echo
+
+echo "Name"
+NAME=$(gum input --placeholder "ChatGPT")
+
+echo
+echo "Website"
+URL=$(gum input --placeholder "https://chatgpt.com")
+
+#echo
+#echo "Icon (optional)"
+#ICON=$(gum input --placeholder "Image URL or local file")
+
+echo
+echo
+
+BROWSER=$(detect_browser)
+
+SLUG=$(slugify "$NAME")
+
+export NAME
+export URL
+export ICON
+export BROWSER
+export SLUG
+
+echo "Installing..."
+echo
+
+run_install
+
+echo
+
+gum style \
+    --foreground 42 \
+    --bold \
+"✓ Installation Complete"

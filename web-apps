@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+clear
+
+CHOICE=$(
+gum choose \
+    "Install Web App" \
+    "Uninstall Web Apps"
+)
+
+case "$CHOICE" in
+    "Install Web App")
+        exec "$(dirname "$0")/install-web-apps"
+        ;;
+    "Uninstall Web Apps")
+        exec "$(dirname "$0")/uninstall-web-apps"
+        ;;
+esac
