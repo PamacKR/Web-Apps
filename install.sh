@@ -6,6 +6,7 @@ PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 INSTALL_DIR="$HOME/.local/share/install-web-apps"
 BIN_DIR="$HOME/.local/bin"
+USER_SHELL="$(basename "$SHELL")"
 
 check_dependencies() {
     local missing=()
@@ -27,7 +28,6 @@ check_dependencies() {
         echo "Arch-based system detected."
         echo "Installing missing dependencies..."
         echo
-
         sudo pacman -S --needed "${missing[@]}"
 
     elif command -v apt >/dev/null 2>&1; then
@@ -101,47 +101,50 @@ if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
     echo "⚠ ~/.local/bin is not in your PATH."
     echo
 
-    if [[ -n "$BASH_VERSION" ]]; then
-        read -rp "Would you like to add ~/.local/bin to your PATH permanently? [Y/n] " reply
+    case "$USER_SHELL" in
+        bash)
+            read -rp "Would you like to add ~/.local/bin to your PATH permanently? [Y/n] " reply
 
-        if [[ ! "$reply" =~ ^[Nn]$ ]]; then
-            echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
-            export PATH="$HOME/.local/bin:$PATH"
+            if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+                echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+                export PATH="$HOME/.local/bin:$PATH"
 
-            echo
-            echo "✓ ~/.local/bin has been added to ~/.bashrc."
-            echo "✓ Commands are available immediately."
+                echo
+                echo "✓ ~/.local/bin has been added to ~/.bashrc."
+                echo "✓ Commands are available immediately."
+            else
+                echo
+                echo "To use the commands immediately, run:"
+                echo
+                echo '    export PATH="$HOME/.local/bin:$PATH"'
+                echo
+                echo "To make this permanent later, run:"
+                echo
+                echo '    echo '\''export PATH="$HOME/.local/bin:$PATH"'\'' >> ~/.bashrc'
+            fi
+            ;;
 
-        else
-            echo
-            echo "To use the commands immediately, run:"
-            echo
-            echo '    export PATH="$HOME/.local/bin:$PATH"'
-            echo
-            echo "To make this permanent later, run:"
-            echo
-            echo '    echo '\''export PATH="$HOME/.local/bin:$PATH"'\'' >> ~/.bashrc'
-        fi
+        fish)
+            read -rp "Would you like to add ~/.local/bin to your Fish PATH permanently? [Y/n] " reply
 
-    elif [[ -n "$FISH_VERSION" ]]; then
-        read -rp "Would you like to add ~/.local/bin to your PATH permanently? [Y/n] " reply
+            if [[ ! "$reply" =~ ^[Nn]$ ]]; then
+                fish_add_path ~/.local/bin
 
-        if [[ ! "$reply" =~ ^[Nn]$ ]]; then
-            fish_add_path ~/.local/bin
+                echo
+                echo "✓ ~/.local/bin has been added to your Fish PATH."
+                echo "✓ Commands are available immediately."
+            else
+                echo
+                echo "Run the following command whenever you're ready:"
+                echo
+                echo "    fish_add_path ~/.local/bin"
+            fi
+            ;;
 
-            echo
-            echo "✓ ~/.local/bin has been added to your Fish PATH."
-
-        else
-            echo
-            echo "Run the following command whenever you're ready:"
-            echo
-            echo "    fish_add_path ~/.local/bin"
-        fi
-
-    else
-        echo "Please add ~/.local/bin to your PATH manually."
-    fi
+        *)
+            echo "Please add ~/.local/bin to your PATH manually."
+            ;;
+    esac
 
     echo
 fi
