@@ -9,7 +9,7 @@ gum choose \
 )
 
 case "$CHOICE" in
-    "Install Web App")
+    "Install a Web App")
         exec "$(dirname "$0")/install-web-apps"
         ;;
     "Uninstall Web Apps")
