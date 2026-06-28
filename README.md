@@ -5,9 +5,8 @@ A lightweight terminal utility for creating desktop web applications on Linux.
 ## Features
 
 - Install websites as desktop apps
-- Automatic favicon download
-- Desktop launcher generation
-- Walker launcher integration
+- Automatic Icon download
+- Application launcher integration
 - Multi-select uninstall
 - Uses your existing browser session
 
@@ -20,7 +19,15 @@ A lightweight terminal utility for creating desktop web applications on Linux.
 
 ## Installation
 
-Coming soon via the AUR.
+```bash
+git clone https://github.com/PamacKR/Web-Apps.git
+
+cd Web-Apps
+
+chmod +x install.sh
+
+./install.sh
+```
 
 ## Usage
 
