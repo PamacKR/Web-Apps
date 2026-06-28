@@ -1,6 +1,6 @@
 # Web Apps
 
-A vibecoded terminal utility for creating desktop web applications on Linux.
+A vibecoded terminal utility for creating desktop web applications for Chromium based Browsers on Linux.
 
 ## Features
 
@@ -50,3 +50,8 @@ https://github.com/user-attachments/assets/38bff763-6592-4e25-8b90-782ea8702c24
 - Option to Edit existing Web Apps
 - Website Catalog to give users some commonly used websites rather than manually typing it on their own
 - Figure out how to put this on the AUR if that will be helpful to people
+
+## Help
+
+- Need some help adding support for Firefox based or maybe even Non-Chromium based browsers
+- Pormpt and install packages on non-Arch distros rather than outputting a message
