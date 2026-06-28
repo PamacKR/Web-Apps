@@ -1,4 +1,4 @@
-# Install Web Apps
+# Web Apps
 
 A lightweight terminal utility for creating desktop web applications on Linux.
 
