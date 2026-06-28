@@ -2,6 +2,8 @@
 
 create_desktop_file() {
 
+    mkdir -p "$HOME/.local/share/applications"
+
     local icon="$HOME/.local/share/install-web-apps/icons/${SLUG}.png"
 
     cat > "$HOME/.local/share/applications/${SLUG}.desktop" <<EOF
