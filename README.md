@@ -6,7 +6,7 @@ A vibecoded terminal utility for creating desktop web applications for Chromium 
 
 - Install websites as desktop apps
 - Automatic Icon download
-- Application launcher integration
+- App launcher integration
 - Multi-select uninstall
 - Uses your existing browser session
 
