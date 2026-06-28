@@ -1,6 +1,6 @@
 # Web Apps
 
-A lightweight terminal utility for creating desktop web applications on Linux.
+A vibecoded terminal utility for creating desktop web applications on Linux.
 
 ## Features
 
